@@ -1,5 +1,6 @@
 # library(devtools)
 # install_github("mfasiolo/gamFactory", ref = "dev")
+# install_github("mfasiolo/mgcViz")
 
 library(gamFactory)
 load("./gefCom2014.RData")
@@ -9,7 +10,7 @@ dat$meanTemp <- rowMeans(dat$TempMat) # mean temperature over all 25 stations
 
 tmp <- lapply(c(24:48, (3:7)*24), function(ii) dplyr::lag(dat$load, ii) ) ## matrix to include single index of the lags
 dat$load_lags <- as.matrix(do.call(cbind, tmp))
-dat <- na.omit(dat)
+dat <- na.omit(dat) #remove observations with missing values
 
 ## keep observations at 12
 dat <- dat[dat$tod == 12, ]
